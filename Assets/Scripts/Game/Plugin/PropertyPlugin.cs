@@ -32,7 +32,7 @@ namespace Assets.Scripts.Game.Plugin
 
         #region 初始化
 
-        public override void Initialize()
+        public override void InitPlugin()
         {
             //  TODO: 从服务器获取技能点信息
         }
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Game.Plugin
         /// </summary>
         public void InitNetApi()
         {
-            RegisterMethod<GpcCall>("CallbackGetPropertyData", CallbackGetPropertyData);
+//            RegisterMethod("CallbackGetPropertyData", typeof(GpcCall), CallbackGetPropertyData);
         }
 
         #endregion

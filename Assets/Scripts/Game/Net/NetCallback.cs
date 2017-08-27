@@ -25,6 +25,11 @@ namespace Assets.Scripts.Game.Net
         /// </summary>
         public Action<IMessage> InvokedMethod { get; set; }
 
-
     }
+
+    internal class GpcCallback<TM> : NetCallback where TM :class, IMessage
+    {
+        public new Action<TM> InvokedMethod { get; set; }
+    }
+
 }

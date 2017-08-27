@@ -40,11 +40,11 @@ namespace Assets.Scripts.Game.Plugin
         /// </summary>
         public int QueueFlushLength = 1;
 
-        public override void Initialize()
+        public override void InitPlugin()
         {
             //  TODO: 初始化日志服务器信息
-            RegisterMethod<Any>("CallbackGetLogReportUrl", CallbackGetLogReportUrl);
-            PushEvent("getLogReportUrl", new GpcVoid());
+//            RegisterMethod<Any>("CallbackGetLogReportUrl", CallbackGetLogReportUrl);
+//            PushEvent("getLogReportUrl", new GpcVoid());
         }
 
         public void CallbackGetLogReportUrl(Any msg)

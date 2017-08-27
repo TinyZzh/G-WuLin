@@ -14,9 +14,9 @@ namespace Assets.Scripts.Game.Plugin
 
         public Dictionary<long, MafiaMemberInfo> MafiaMemberInfos = new Dictionary<long, MafiaMemberInfo>();
 
-        public override void Initialize()
+        public override void InitPlugin()
         {
-            RegisterMethod<GpcVoid>("CallbackMafiaMemberDetail", CallbackMafiaMemberDetail);
+//            RegisterMethod("CallbackMafiaMemberDetail", typeof(GpcVoid), CallbackMafiaMemberDetail);
         }
 
 

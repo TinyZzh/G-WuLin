@@ -174,9 +174,9 @@ namespace Assets.Scripts.Game.Net
         {
             if (!_socket.Connected) return;
             _socket.EndConnect(ar);
+            StartReceive();
             if (ConnectCompleted != null)
                 ConnectCompleted(this, new SocketEventArgs());
-            StartReceive();
         }
 
         #endregion

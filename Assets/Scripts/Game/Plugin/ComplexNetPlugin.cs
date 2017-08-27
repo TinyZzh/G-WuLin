@@ -7,19 +7,11 @@ namespace Assets.Scripts.Game.Plugin
 {
     internal abstract class ComplexNetPlugin : AbstractPlugin
     {
-
-        /// <summary>
-        /// 注册回调接口
-        /// </summary>
-        /// <typeparam name="TM">回调函数的参数类型</typeparam>
-        /// <param name="method">访问远程服务名</param>
-        /// <param name="action">回调函数</param>
-        public void RegisterMethod<TM>(string method, Action<TM> action)
-            where TM : class, IMessage
+        public void RegisterMethod(string method, Type paramType, Action<IMessage> action)
         {
             var netPlugin = Mafia.Instance.GetPlugin<NetPlugin>();
             if (netPlugin != null)
-                netPlugin.RegisterMethod(method, action);
+                netPlugin.RegisterMethod(method, paramType, action);
         }
 
         /// <summary>
@@ -33,7 +25,7 @@ namespace Assets.Scripts.Game.Plugin
         {
             var netPlugin = Mafia.Instance.GetPlugin<NetPlugin>();
             if (netPlugin != null)
-                netPlugin.OnEvent(new GpcCall()
+                netPlugin.OnEvent(new GpcCall
                 {
                     Method = api,
                     Params = param.ToByteString()
@@ -49,7 +41,7 @@ namespace Assets.Scripts.Game.Plugin
         {
             var netPlugin = Mafia.Instance.GetPlugin<NetPlugin>();
             if (netPlugin != null)
-                netPlugin.PushEvent(new GpcCall()
+                netPlugin.PushEvent(new GpcCall
                 {
                     Method = api,
                     Params = param.ToByteString()

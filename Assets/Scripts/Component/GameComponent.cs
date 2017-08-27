@@ -44,6 +44,7 @@ public class GameComponent : MonoBehaviour
         Mafia.Instance.Init();
         var plugin = Mafia.Instance.GetPlugin<MafiaPlugin>();
 
+
         Debug.Log("Plugin is " + plugin);
         //        GetLoadProfab();
     }

@@ -15,28 +15,28 @@ namespace Assets.Scripts.Game.Plugin
     {
         /// <summary>
         /// </summary>
-        private readonly SimpleSocket _mSocket = new SimpleSocket(4, 4);
+        private static readonly SimpleSocket NetSocket = new SimpleSocket(4, 4);
 
         /// <summary>
         ///     临时回调
         /// </summary>
-        protected readonly Dictionary<int, NetCallback> CallbacksDic = new Dictionary<int, NetCallback>();
+        protected static readonly Dictionary<int, NetCallback> CallbacksDic = new Dictionary<int, NetCallback>();
 
         /// <summary>
-        /// /* method name */ - 
+        ///     /* method name */ -
         /// </summary>
-        protected readonly Dictionary<string, NetCallback> MethodsDic = new Dictionary<string, NetCallback>();
+        protected static readonly Dictionary<string, NetCallback> MethodsDic = new Dictionary<string, NetCallback>();
 
         /// <summary>
         /// </summary>
         private volatile int _mId = 1;
 
 
-        public override void Initialize()
+        public override void InitPlugin()
         {
-            _mSocket.Connect("127.0.0.1", 9007);
-            _mSocket.ConnectCompleted += _mSocket_ConnectCompleted;
-            _mSocket.ReceiveMessageCompleted += Socket_ReceiveMessageCompleted;
+            NetSocket.Connect("127.0.0.1", 9007);
+            NetSocket.ConnectCompleted += _mSocket_ConnectCompleted;
+            NetSocket.ReceiveMessageCompleted += Socket_ReceiveMessageCompleted;
         }
 
         private void _mSocket_DisconnectCompleted(object sender, SocketEventArgs e)
@@ -46,11 +46,8 @@ namespace Assets.Scripts.Game.Plugin
 
         private void _mSocket_ConnectCompleted(object sender, SocketEventArgs e)
         {
-            PushEvent(new GpcCall()
-            {
-                Method = "onSyncTime",
-                Params = new GpcVoid().ToByteString()
-            });
+            var mafiaPlugin = Mafia.Instance.GetPlugin<MafiaPlugin>();
+            mafiaPlugin.OnLogin();
         }
 
         private void Socket_ReceiveMessageCompleted(object sender, SocketEventArgs e)
@@ -70,18 +67,16 @@ namespace Assets.Scripts.Game.Plugin
         }
 
         /// <summary>
-        /// 注册回调接口
+        ///     注册回调接口
         /// </summary>
-        /// <typeparam name="TM">回调函数的参数类型</typeparam>
         /// <param name="method">访问远程服务名</param>
         /// <param name="action">回调函数</param>
-        public void RegisterMethod<TM>(string method, Action<TM> action)
-            where TM : class, IMessage
+        public void RegisterMethod(string method, Type paramType, Action<IMessage> action)
         {
-            MethodsDic.Add(method, new NetCallback
+            MethodsDic.Add(method, new NetCallback()
             {
-                Param = typeof(TM),
-                InvokedMethod = action as Action<IMessage>
+                Param = paramType,
+                InvokedMethod = action
             });
         }
 
@@ -100,12 +95,12 @@ namespace Assets.Scripts.Game.Plugin
                 CallbacksDic.Add(id, new NetCallback
                 {
                     ID = id,
-                    InvokedMethod = callback as Action<IMessage>,
                     Dateline = GameClock.Timestamp,
-                    Param = typeof(TM)
+                    Param = typeof(TM),
+                    InvokedMethod = callback as Action<IMessage>
                 });
             }
-            _mSocket.OnSendMessage(msg);
+            NetSocket.OnSendMessage(msg);
         }
 
         /// <summary>
@@ -114,7 +109,7 @@ namespace Assets.Scripts.Game.Plugin
         /// <param name="msg"></param>
         public void PushEvent(IMessage msg)
         {
-            _mSocket.OnSendMessage(msg);
+            NetSocket.OnSendMessage(msg);
         }
     }
 }

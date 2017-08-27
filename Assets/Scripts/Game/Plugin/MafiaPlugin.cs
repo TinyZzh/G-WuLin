@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using Assets.Scripts.Game.Bean;
 using Assets.Scripts.Game.Cache;
+using Assets.Scripts.Game.Core;
+using Google.Protobuf;
 using Org.OkraAx.V3;
+using UnityEngine;
 
 namespace Assets.Scripts.Game.Plugin
 {
@@ -11,39 +14,12 @@ namespace Assets.Scripts.Game.Plugin
     /// </summary>
     internal class MafiaPlugin : ComplexNetPlugin
     {
-        public override void Initialize()
+        public override void InitPlugin()
         {
-            RegisterMethod<CallbackSyncTime>("callbackSyncTime", callbackSyncTime);
+            RegisterMethod("callbackLogin", typeof(RetBean), CallbackLogin);
+            RegisterMethod("callbackSyncTime", typeof(RetBean), CallbackSyncTime);
             
         }
-
-        private void callbackSyncTime(CallbackSyncTime obj)
-        {
-
-
-
-            var i = 0;
-        }
-
-        #region Api
-
-        public void OnLogin()
-        {
-            PushEvent("", new LoginBean
-            {
-                OpenId = "x1-999"
-            });
-        }
-
-        #endregion
-
-        #region 回调函数
-
-        public void CallbackLogin(CallbackLoginBean msg)
-        {
-        }
-
-        #endregion
 
         #region 玩家属性
 
@@ -228,6 +204,46 @@ namespace Assets.Scripts.Game.Plugin
             FetchMoney(cfgItem.Price * amount);
             TotalCost -= cfgItem.Cost * amount;
         }
+
+        #endregion
+
+        #region Api
+
+        public void OnLogin()
+        {
+            PushEvent("onLogin", new LoginBean
+            {
+                OpenId = "x1-999"
+            });
+        }
+
+        public void OnSyncTime()
+        {
+            PushEvent("onSyncTime", new GpcVoid());
+        }
+
+        #endregion
+
+        #region 回调函数
+
+        [GpcCallback]
+        private void CallbackSyncTime(IMessage obj)
+        {
+            Debug.Log("[CallbackSyncTime]");
+        }
+
+        [GpcCallback]
+        public void CallbackLogin(IMessage msg)
+        {
+            Debug.Log("[CallbackLogin]");
+            //  登录失败  - 创建橘色
+
+            //  登录成功    -   同步系统时间
+
+            OnSyncTime();
+        }
+
+        
 
         #endregion
     }

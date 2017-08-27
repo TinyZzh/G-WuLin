@@ -22,17 +22,25 @@ namespace Org.OkraAx.V3 {
     static BeanPlayerReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBCZWFuUGxheWVyLnByb3RvEg1vcmcub2tyYUF4LnYzIiUKFkNhbGxiYWNr",
-            "Q3JlYXRlUm9sZUJlYW4SCwoDcmV0GAEgASgFIjAKEUNhbGxiYWNrTG9naW5C",
-            "ZWFuEgsKA3JldBgBIAEoBRIOCgZvcGVuSWQYAiABKAkiJQoQQ2FsbGJhY2tT",
-            "eW5jVGltZRIRCgl0aW1lc3RhbXAYASABKANCLQoab3JnLm9rcmFBeC52My5i",
-            "ZWFucy5wbGF5ZXJCC0dwY0JuUGxheWVySAFQAWIGcHJvdG8z"));
+            "ChBCZWFuUGxheWVyLnByb3RvEg1vcmcub2tyYUF4LnYzIjsKDkJhc2VQbGF5",
+            "ZXJJbmZvEgsKA3VpZBgBIAEoAxIMCgRuYW1lGAIgASgJEg4KBmZpZ3VyZRgD",
+            "IAEoBSI+Cg5DcmVhdGVSb2xlQmVhbhIOCgZvcGVuSWQYASABKAkSDAoEbmFt",
+            "ZRgCIAEoCRIOCgZmaWd1cmUYAyABKAUiGwoJTG9naW5CZWFuEg4KBm9wZW5J",
+            "ZBgBIAEoCSIWCgdSZXRCZWFuEgsKA3JldBgBIAEoBSJGChZDYWxsYmFja0Ny",
+            "ZWF0ZVJvbGVCZWFuEg4KBm9wZW5JZBgBIAEoCRIMCgRuYW1lGAIgASgJEg4K",
+            "BmZpZ3VyZRgDIAEoBSIjChFDYWxsYmFja0xvZ2luQmVhbhIOCgZvcGVuSWQY",
+            "ASABKAkiEgoQQ2FsbGJhY2tTeW5jVGltZUItChpvcmcub2tyYUF4LnYzLmJl",
+            "YW5zLnBsYXllckILR3BjQm5QbGF5ZXJIAVABYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Org.OkraAx.V3.CallbackCreateRoleBean), global::Org.OkraAx.V3.CallbackCreateRoleBean.Parser, new[]{ "Ret" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Org.OkraAx.V3.CallbackLoginBean), global::Org.OkraAx.V3.CallbackLoginBean.Parser, new[]{ "Ret", "OpenId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Org.OkraAx.V3.CallbackSyncTime), global::Org.OkraAx.V3.CallbackSyncTime.Parser, new[]{ "Timestamp" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Org.OkraAx.V3.BasePlayerInfo), global::Org.OkraAx.V3.BasePlayerInfo.Parser, new[]{ "Uid", "Name", "Figure" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Org.OkraAx.V3.CreateRoleBean), global::Org.OkraAx.V3.CreateRoleBean.Parser, new[]{ "OpenId", "Name", "Figure" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Org.OkraAx.V3.LoginBean), global::Org.OkraAx.V3.LoginBean.Parser, new[]{ "OpenId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Org.OkraAx.V3.RetBean), global::Org.OkraAx.V3.RetBean.Parser, new[]{ "Ret" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Org.OkraAx.V3.CallbackCreateRoleBean), global::Org.OkraAx.V3.CallbackCreateRoleBean.Parser, new[]{ "OpenId", "Name", "Figure" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Org.OkraAx.V3.CallbackLoginBean), global::Org.OkraAx.V3.CallbackLoginBean.Parser, new[]{ "OpenId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Org.OkraAx.V3.CallbackSyncTime), global::Org.OkraAx.V3.CallbackSyncTime.Parser, null, null, null, null)
           }));
     }
     #endregion
@@ -40,12 +48,12 @@ namespace Org.OkraAx.V3 {
   }
   #region Messages
   /// <summary>
-  ///   创建角色
+  ///   玩家基础信息
   /// </summary>
-  public sealed partial class CallbackCreateRoleBean : pb::IMessage<CallbackCreateRoleBean> {
-    private static readonly pb::MessageParser<CallbackCreateRoleBean> _parser = new pb::MessageParser<CallbackCreateRoleBean>(() => new CallbackCreateRoleBean());
+  public sealed partial class BasePlayerInfo : pb::IMessage<BasePlayerInfo> {
+    private static readonly pb::MessageParser<BasePlayerInfo> _parser = new pb::MessageParser<BasePlayerInfo>(() => new BasePlayerInfo());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CallbackCreateRoleBean> Parser { get { return _parser; } }
+    public static pb::MessageParser<BasePlayerInfo> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -58,20 +66,499 @@ namespace Org.OkraAx.V3 {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CallbackCreateRoleBean() {
+    public BasePlayerInfo() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CallbackCreateRoleBean(CallbackCreateRoleBean other) : this() {
+    public BasePlayerInfo(BasePlayerInfo other) : this() {
+      uid_ = other.uid_;
+      name_ = other.name_;
+      figure_ = other.figure_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BasePlayerInfo Clone() {
+      return new BasePlayerInfo(this);
+    }
+
+    /// <summary>Field number for the "uid" field.</summary>
+    public const int UidFieldNumber = 1;
+    private long uid_;
+    /// <summary>
+    ///   玩家唯一ID
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long Uid {
+      get { return uid_; }
+      set {
+        uid_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 2;
+    private string name_ = "";
+    /// <summary>
+    ///   角色名
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "figure" field.</summary>
+    public const int FigureFieldNumber = 3;
+    private int figure_;
+    /// <summary>
+    ///   形象
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Figure {
+      get { return figure_; }
+      set {
+        figure_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as BasePlayerInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(BasePlayerInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Uid != other.Uid) return false;
+      if (Name != other.Name) return false;
+      if (Figure != other.Figure) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Uid != 0L) hash ^= Uid.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (Figure != 0) hash ^= Figure.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Uid != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(Uid);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Name);
+      }
+      if (Figure != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Figure);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Uid != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Uid);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Figure != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Figure);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(BasePlayerInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Uid != 0L) {
+        Uid = other.Uid;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      if (other.Figure != 0) {
+        Figure = other.Figure;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Uid = input.ReadInt64();
+            break;
+          }
+          case 18: {
+            Name = input.ReadString();
+            break;
+          }
+          case 24: {
+            Figure = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///   创建角色
+  /// </summary>
+  public sealed partial class CreateRoleBean : pb::IMessage<CreateRoleBean> {
+    private static readonly pb::MessageParser<CreateRoleBean> _parser = new pb::MessageParser<CreateRoleBean>(() => new CreateRoleBean());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<CreateRoleBean> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Org.OkraAx.V3.BeanPlayerReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CreateRoleBean() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CreateRoleBean(CreateRoleBean other) : this() {
+      openId_ = other.openId_;
+      name_ = other.name_;
+      figure_ = other.figure_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CreateRoleBean Clone() {
+      return new CreateRoleBean(this);
+    }
+
+    /// <summary>Field number for the "openId" field.</summary>
+    public const int OpenIdFieldNumber = 1;
+    private string openId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string OpenId {
+      get { return openId_; }
+      set {
+        openId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 2;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "figure" field.</summary>
+    public const int FigureFieldNumber = 3;
+    private int figure_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Figure {
+      get { return figure_; }
+      set {
+        figure_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as CreateRoleBean);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(CreateRoleBean other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (OpenId != other.OpenId) return false;
+      if (Name != other.Name) return false;
+      if (Figure != other.Figure) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (OpenId.Length != 0) hash ^= OpenId.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (Figure != 0) hash ^= Figure.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (OpenId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(OpenId);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Name);
+      }
+      if (Figure != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Figure);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (OpenId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(OpenId);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Figure != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Figure);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(CreateRoleBean other) {
+      if (other == null) {
+        return;
+      }
+      if (other.OpenId.Length != 0) {
+        OpenId = other.OpenId;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      if (other.Figure != 0) {
+        Figure = other.Figure;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            OpenId = input.ReadString();
+            break;
+          }
+          case 18: {
+            Name = input.ReadString();
+            break;
+          }
+          case 24: {
+            Figure = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class LoginBean : pb::IMessage<LoginBean> {
+    private static readonly pb::MessageParser<LoginBean> _parser = new pb::MessageParser<LoginBean>(() => new LoginBean());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<LoginBean> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Org.OkraAx.V3.BeanPlayerReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public LoginBean() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public LoginBean(LoginBean other) : this() {
+      openId_ = other.openId_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public LoginBean Clone() {
+      return new LoginBean(this);
+    }
+
+    /// <summary>Field number for the "openId" field.</summary>
+    public const int OpenIdFieldNumber = 1;
+    private string openId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string OpenId {
+      get { return openId_; }
+      set {
+        openId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as LoginBean);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(LoginBean other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (OpenId != other.OpenId) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (OpenId.Length != 0) hash ^= OpenId.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (OpenId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(OpenId);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (OpenId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(OpenId);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(LoginBean other) {
+      if (other == null) {
+        return;
+      }
+      if (other.OpenId.Length != 0) {
+        OpenId = other.OpenId;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            OpenId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///   callback
+  ///   Simple callback bean
+  /// </summary>
+  public sealed partial class RetBean : pb::IMessage<RetBean> {
+    private static readonly pb::MessageParser<RetBean> _parser = new pb::MessageParser<RetBean>(() => new RetBean());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<RetBean> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Org.OkraAx.V3.BeanPlayerReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RetBean() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RetBean(RetBean other) : this() {
       ret_ = other.ret_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CallbackCreateRoleBean Clone() {
-      return new CallbackCreateRoleBean(this);
+    public RetBean Clone() {
+      return new RetBean(this);
     }
 
     /// <summary>Field number for the "ret" field.</summary>
@@ -87,11 +574,11 @@ namespace Org.OkraAx.V3 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as CallbackCreateRoleBean);
+      return Equals(other as RetBean);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CallbackCreateRoleBean other) {
+    public bool Equals(RetBean other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -132,7 +619,7 @@ namespace Org.OkraAx.V3 {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CallbackCreateRoleBean other) {
+    public void MergeFrom(RetBean other) {
       if (other == null) {
         return;
       }
@@ -159,8 +646,179 @@ namespace Org.OkraAx.V3 {
 
   }
 
-  /// <summary>
-  /// </summary>
+  public sealed partial class CallbackCreateRoleBean : pb::IMessage<CallbackCreateRoleBean> {
+    private static readonly pb::MessageParser<CallbackCreateRoleBean> _parser = new pb::MessageParser<CallbackCreateRoleBean>(() => new CallbackCreateRoleBean());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<CallbackCreateRoleBean> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Org.OkraAx.V3.BeanPlayerReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CallbackCreateRoleBean() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CallbackCreateRoleBean(CallbackCreateRoleBean other) : this() {
+      openId_ = other.openId_;
+      name_ = other.name_;
+      figure_ = other.figure_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CallbackCreateRoleBean Clone() {
+      return new CallbackCreateRoleBean(this);
+    }
+
+    /// <summary>Field number for the "openId" field.</summary>
+    public const int OpenIdFieldNumber = 1;
+    private string openId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string OpenId {
+      get { return openId_; }
+      set {
+        openId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 2;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "figure" field.</summary>
+    public const int FigureFieldNumber = 3;
+    private int figure_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Figure {
+      get { return figure_; }
+      set {
+        figure_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as CallbackCreateRoleBean);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(CallbackCreateRoleBean other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (OpenId != other.OpenId) return false;
+      if (Name != other.Name) return false;
+      if (Figure != other.Figure) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (OpenId.Length != 0) hash ^= OpenId.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (Figure != 0) hash ^= Figure.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (OpenId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(OpenId);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Name);
+      }
+      if (Figure != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Figure);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (OpenId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(OpenId);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Figure != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Figure);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(CallbackCreateRoleBean other) {
+      if (other == null) {
+        return;
+      }
+      if (other.OpenId.Length != 0) {
+        OpenId = other.OpenId;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      if (other.Figure != 0) {
+        Figure = other.Figure;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            OpenId = input.ReadString();
+            break;
+          }
+          case 18: {
+            Name = input.ReadString();
+            break;
+          }
+          case 24: {
+            Figure = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class CallbackLoginBean : pb::IMessage<CallbackLoginBean> {
     private static readonly pb::MessageParser<CallbackLoginBean> _parser = new pb::MessageParser<CallbackLoginBean>(() => new CallbackLoginBean());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -168,7 +826,7 @@ namespace Org.OkraAx.V3 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Org.OkraAx.V3.BeanPlayerReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Org.OkraAx.V3.BeanPlayerReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -185,7 +843,6 @@ namespace Org.OkraAx.V3 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public CallbackLoginBean(CallbackLoginBean other) : this() {
-      ret_ = other.ret_;
       openId_ = other.openId_;
     }
 
@@ -194,19 +851,8 @@ namespace Org.OkraAx.V3 {
       return new CallbackLoginBean(this);
     }
 
-    /// <summary>Field number for the "ret" field.</summary>
-    public const int RetFieldNumber = 1;
-    private int ret_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Ret {
-      get { return ret_; }
-      set {
-        ret_ = value;
-      }
-    }
-
     /// <summary>Field number for the "openId" field.</summary>
-    public const int OpenIdFieldNumber = 2;
+    public const int OpenIdFieldNumber = 1;
     private string openId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string OpenId {
@@ -229,7 +875,6 @@ namespace Org.OkraAx.V3 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Ret != other.Ret) return false;
       if (OpenId != other.OpenId) return false;
       return true;
     }
@@ -237,7 +882,6 @@ namespace Org.OkraAx.V3 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Ret != 0) hash ^= Ret.GetHashCode();
       if (OpenId.Length != 0) hash ^= OpenId.GetHashCode();
       return hash;
     }
@@ -249,12 +893,8 @@ namespace Org.OkraAx.V3 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Ret != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Ret);
-      }
       if (OpenId.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteString(OpenId);
       }
     }
@@ -262,9 +902,6 @@ namespace Org.OkraAx.V3 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Ret != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Ret);
-      }
       if (OpenId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(OpenId);
       }
@@ -275,9 +912,6 @@ namespace Org.OkraAx.V3 {
     public void MergeFrom(CallbackLoginBean other) {
       if (other == null) {
         return;
-      }
-      if (other.Ret != 0) {
-        Ret = other.Ret;
       }
       if (other.OpenId.Length != 0) {
         OpenId = other.OpenId;
@@ -292,11 +926,7 @@ namespace Org.OkraAx.V3 {
           default:
             input.SkipLastField();
             break;
-          case 8: {
-            Ret = input.ReadInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             OpenId = input.ReadString();
             break;
           }
@@ -306,9 +936,6 @@ namespace Org.OkraAx.V3 {
 
   }
 
-  /// <summary>
-  ///   同步系统时间
-  /// </summary>
   public sealed partial class CallbackSyncTime : pb::IMessage<CallbackSyncTime> {
     private static readonly pb::MessageParser<CallbackSyncTime> _parser = new pb::MessageParser<CallbackSyncTime>(() => new CallbackSyncTime());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -316,7 +943,7 @@ namespace Org.OkraAx.V3 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Org.OkraAx.V3.BeanPlayerReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Org.OkraAx.V3.BeanPlayerReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -333,23 +960,11 @@ namespace Org.OkraAx.V3 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public CallbackSyncTime(CallbackSyncTime other) : this() {
-      timestamp_ = other.timestamp_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public CallbackSyncTime Clone() {
       return new CallbackSyncTime(this);
-    }
-
-    /// <summary>Field number for the "timestamp" field.</summary>
-    public const int TimestampFieldNumber = 1;
-    private long timestamp_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long Timestamp {
-      get { return timestamp_; }
-      set {
-        timestamp_ = value;
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -365,14 +980,12 @@ namespace Org.OkraAx.V3 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Timestamp != other.Timestamp) return false;
       return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Timestamp != 0L) hash ^= Timestamp.GetHashCode();
       return hash;
     }
 
@@ -383,18 +996,11 @@ namespace Org.OkraAx.V3 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Timestamp != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(Timestamp);
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Timestamp != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Timestamp);
-      }
       return size;
     }
 
@@ -402,9 +1008,6 @@ namespace Org.OkraAx.V3 {
     public void MergeFrom(CallbackSyncTime other) {
       if (other == null) {
         return;
-      }
-      if (other.Timestamp != 0L) {
-        Timestamp = other.Timestamp;
       }
     }
 
@@ -416,10 +1019,6 @@ namespace Org.OkraAx.V3 {
           default:
             input.SkipLastField();
             break;
-          case 8: {
-            Timestamp = input.ReadInt64();
-            break;
-          }
         }
       }
     }

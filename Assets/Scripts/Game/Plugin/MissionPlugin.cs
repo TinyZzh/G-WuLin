@@ -13,7 +13,7 @@ namespace Assets.Scripts.Game.Plugin
     {
         
 
-        public override void Initialize()
+        public override void InitPlugin()
         {
             
         }
