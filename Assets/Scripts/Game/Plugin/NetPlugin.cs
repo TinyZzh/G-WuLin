@@ -47,7 +47,7 @@ namespace Assets.Scripts.Game.Plugin
         private void _mSocket_ConnectCompleted(object sender, SocketEventArgs e)
         {
             var mafiaPlugin = Mafia.Instance.GetPlugin<MafiaPlugin>();
-            mafiaPlugin.OnLogin();
+            mafiaPlugin.OnLogin("x1-999");
         }
 
         private void Socket_ReceiveMessageCompleted(object sender, SocketEventArgs e)
@@ -70,9 +70,13 @@ namespace Assets.Scripts.Game.Plugin
         ///     注册回调接口
         /// </summary>
         /// <param name="method">访问远程服务名</param>
+        /// <param name="paramType">回调函数的参数类型</param>
         /// <param name="action">回调函数</param>
         public void RegisterMethod(string method, Type paramType, Action<IMessage> action)
         {
+            if (MethodsDic.ContainsKey(method))
+                return;
+
             MethodsDic.Add(method, new NetCallback()
             {
                 Param = paramType,

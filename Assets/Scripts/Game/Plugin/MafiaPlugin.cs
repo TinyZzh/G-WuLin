@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Game.Bean;
 using Assets.Scripts.Game.Cache;
 using Assets.Scripts.Game.Core;
+using Assets.Scripts.Game.Net;
 using Google.Protobuf;
 using Org.OkraAx.V3;
 using UnityEngine;
@@ -16,9 +17,8 @@ namespace Assets.Scripts.Game.Plugin
     {
         public override void InitPlugin()
         {
-            RegisterMethod("callbackLogin", typeof(RetBean), CallbackLogin);
-            RegisterMethod("callbackSyncTime", typeof(RetBean), CallbackSyncTime);
-            
+            RegisterMethod(Api.CallbackLogin, typeof(RetBean), CallbackLogin);
+            RegisterMethod(Api.CallbackSyncTime, typeof(RetBean), CallbackSyncTime);
         }
 
         #region 玩家属性
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Game.Plugin
         /// </summary>
         public RoleData RoleInfo { get; set; }
 
-        
+
         public readonly Dictionary<int, ItemInfo> Items = new Dictionary<int, ItemInfo>();
 
         /// <summary>
@@ -207,19 +207,19 @@ namespace Assets.Scripts.Game.Plugin
 
         #endregion
 
-        #region Api
+        #region 接口
 
-        public void OnLogin()
+        public void OnLogin(string openId)
         {
-            PushEvent("onLogin", new LoginBean
+            PushEvent(Api.ApiOnLogin, new LoginBean
             {
-                OpenId = "x1-999"
+                OpenId = openId
             });
         }
 
         public void OnSyncTime()
         {
-            PushEvent("onSyncTime", new GpcVoid());
+            PushEvent(Api.ApiOnSyncTime, new GpcVoid());
         }
 
         #endregion
@@ -242,8 +242,6 @@ namespace Assets.Scripts.Game.Plugin
 
             OnSyncTime();
         }
-
-        
 
         #endregion
     }

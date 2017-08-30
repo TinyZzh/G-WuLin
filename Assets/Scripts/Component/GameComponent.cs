@@ -47,6 +47,8 @@ public class GameComponent : MonoBehaviour
 
         Debug.Log("Plugin is " + plugin);
         //        GetLoadProfab();
+
+        ShowAlert();
     }
 
     public void OnClickInitBtn()
@@ -99,6 +101,29 @@ public class GameComponent : MonoBehaviour
 
     }
 
+
+    public void ShowAlert()
+    {
+        var load = Resources.Load("Panel/PromptPanel");
+        var obj = (GameObject)Instantiate(load);
+        var canvas = GameObject.Find("Canvas");
+        if (canvas != null)
+        {
+            obj.transform.parent = canvas.transform;
+            var rectTransform = obj.transform as RectTransform;
+            if (rectTransform != null)
+            {
+                //                rectTransform.offsetMin = new Vector2(16, 16);
+                rectTransform.offsetMax = new Vector2(0, 0);
+            }
+
+            var promptComponent = obj.GetComponent<PromptComponent>();
+            promptComponent.ShowAlert("Alert: Hello World!");
+
+
+            Debug.Log("obj.transform.parent = canvas.transform;");
+        }
+    }
 
     #endregion
 
