@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using Assets.Scripts.Game;
 using Assets.Scripts.Game.Plugin;
 using Assets.Scripts.Game.Utils;
@@ -48,7 +51,6 @@ public class GameComponent : MonoBehaviour
         Debug.Log("Plugin is " + plugin);
         //        GetLoadProfab();
 
-        ShowAlert();
     }
 
     public void OnClickInitBtn()
@@ -87,43 +89,39 @@ public class GameComponent : MonoBehaviour
 
 
 
-    #region 菜单界面
+    #region 资源加载
+
+    public Dictionary<string, AssetBundle> AssetBundleCache = new Dictionary<string,AssetBundle>();
 
 
-    public void Main()
+
+    private IEnumerator LoadAsyncAssetBundleCoroutine(string path, Action<AssetBundle> callback)
     {
-        //  初始化场景
-
-        //  初始化UI
-
-        //  初始化玩家数据
-
-
+        var request = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, path));
+        yield return request;
+        callback(request.assetBundle);
     }
 
-
-    public void ShowAlert()
+    private IEnumerator LoadAsyncCoroutine(string path, string resName, Action<GameObject> callback)
     {
-        var load = Resources.Load("Panel/PromptPanel");
-        var obj = (GameObject)Instantiate(load);
-        var canvas = GameObject.Find("Canvas");
-        if (canvas != null)
+        var request = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, path));
+        yield return request;
+        var assetBundle = request.assetBundle;
+        if (assetBundle == null)
         {
-            obj.transform.parent = canvas.transform;
-            var rectTransform = obj.transform as RectTransform;
-            if (rectTransform != null)
-            {
-                //                rectTransform.offsetMin = new Vector2(16, 16);
-                rectTransform.offsetMax = new Vector2(0, 0);
-            }
-
-            var promptComponent = obj.GetComponent<PromptComponent>();
-            promptComponent.ShowAlert("Alert: Hello World!");
-
-
-            Debug.Log("obj.transform.parent = canvas.transform;");
+            Debug.Log("Failed to load AssetBundle!");
+            yield break;
         }
+        var assetLoadRequest = assetBundle.LoadAssetAsync<GameObject>(resName);
+        yield return assetLoadRequest;
+        callback(assetLoadRequest.asset as GameObject);
     }
+
+    public void LoadAssetbundleAsync(string path, Action<AssetBundle> callback)
+    {
+        StartCoroutine(LoadAsyncAssetBundleCoroutine(path, callback));
+    }
+
 
     #endregion
 

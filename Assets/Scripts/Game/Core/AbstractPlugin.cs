@@ -12,7 +12,7 @@ namespace Assets.Scripts.Game.Core
         /// <summary>
         ///     插件是否完成初始化
         /// </summary>
-        private bool _isInited = false;
+        private bool _isInited;
 
         public AbstractPlugin()
         {
@@ -22,10 +22,10 @@ namespace Assets.Scripts.Game.Core
         /// <summary>
         ///     启用插件
         /// </summary>
-        protected bool Enable
+        public bool Enable
         {
             get { return _isEnable; }
-            set
+            protected set
             {
                 if (_isEnable != value)
                     if (value)
@@ -48,11 +48,8 @@ namespace Assets.Scripts.Game.Core
             if (_isInited)
                 return;
             InitPlugin();
-            this._isInited = true;
+            _isInited = true;
         }
-
-
-        public abstract void InitPlugin();
 
 
         public bool IsInitialized()
@@ -60,7 +57,17 @@ namespace Assets.Scripts.Game.Core
             return _isInited;
         }
 
+
+        public abstract void InitPlugin();
+
+        /// <summary>
+        ///     插件启用事件
+        /// </summary>
         public event EventHandler OnPluginEnable;
+
+        /// <summary>
+        ///     插件禁用事件
+        /// </summary>
         public event EventHandler OnPluginDisable;
     }
 }

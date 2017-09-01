@@ -9,14 +9,9 @@ using UnityEngine.UI;
 public class LoadComponent : MonoBehaviour
 {
     /// <summary>
-    /// 加载进度表
+    ///     加载进度表
     /// </summary>
     private Transform _imgLoadingTransform;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Tooltip("SceneComponent")] public Transform SceneTransform;
 
 // Use this for initialization
     private void Start()
@@ -31,21 +26,16 @@ public class LoadComponent : MonoBehaviour
     private void Awake()
     {
         _imgLoadingTransform = transform.Find("ImgLoading");
-        ShowLoadPanel(1, () => { Debug.Log("Show Load Panel."); });
     }
 
-    public void ShowLoadPanel(int cfgSceneId, Action action)
+    public void ShowLoadPanel(Action before, int cfgSceneId, Action after)
     {
-        if (SceneTransform != null)
-        {
-            var soScene = SceneTransform.GetComponent<SceneComponent>();
-            if (soScene != null)
-                soScene.ChangeSceneStatus();
-        }
-        StartCoroutine(ShowLoading(action));
+        if (before != null)
+            before.Invoke();
+        StartCoroutine(ShowLoading(after));
     }
 
-    private IEnumerator ShowLoading(Action action)
+    private IEnumerator ShowLoading(Action after)
     {
         if (_imgLoadingTransform == null)
             yield break;
@@ -59,9 +49,9 @@ public class LoadComponent : MonoBehaviour
             yield return 1;
             if (coImage.fillAmount >= 1.0f)
             {
-                DestroyObject(this.transform.gameObject);
-                if (action != null)
-                    action.Invoke();
+                DestroyObject(transform.gameObject);
+                if (after != null)
+                    after.Invoke();
                 yield break;
             }
         }

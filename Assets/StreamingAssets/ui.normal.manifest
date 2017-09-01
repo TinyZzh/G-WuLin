@@ -1,0 +1,65 @@
+ManifestFileVersion: 0
+CRC: 3183464621
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b4439a57302b686e9c3ce094fe6b3591
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 891962fecf0d7c087cb19dee66938c27
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe4580102f09b8f42a457758fe781a60, type: 3}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 575553740, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1367256648, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2f13d87816c36344e89c532c209ed674, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a13766dab262736408c5cc73237126f4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d21a18ed6d77aa0488e2a61d7e321cf2, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 48df4223eb3aa1c48846bf339e564b0e, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefab/PfbTooltip.prefab
+- Assets/Resources/Prefab/PfbLoginPanel.prefab
+- Assets/Resources/Prefab/PfbMainPanel.prefab
+- Assets/Resources/Prefab/PfbSkillPointInfo.prefab
+- Assets/Resources/Prefab/PfbProgressBar.prefab
+- Assets/Resources/Prefab/PfbLoadPanel.prefab
+- Assets/Resources/Prefab/PfbLeftTopPanel.prefab
+- Assets/Resources/Prefab/PfbShopPanel.prefab
+Dependencies: []

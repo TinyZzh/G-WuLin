@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Game.Cache;
 using Assets.Scripts.Game.Core;
 using Assets.Scripts.Game.Plugin;
+using UnityEngine;
 
 namespace Assets.Scripts.Game
 {
@@ -15,13 +16,20 @@ namespace Assets.Scripts.Game
         /// </summary>
         public static readonly Mafia Instance = new Mafia();
 
+        /// <summary>
+        ///     缓存
+        /// </summary>
         private readonly CacheStore _cacheStore = new CacheStore();
-
 
         /// <summary>
         ///     插件
         /// </summary>
         private readonly Dictionary<Type, IPlugin> _plugins = new Dictionary<Type, IPlugin>();
+
+        /// <summary>
+        ///     是否已经初始化
+        /// </summary>
+        private bool _isInitialized;
 
         /// <summary>
         ///     配置缓存
@@ -34,6 +42,9 @@ namespace Assets.Scripts.Game
 
         public void Init()
         {
+            if (_isInitialized)
+                return;
+            _isInitialized = true;
             CacheStore.Init();
             InitPlugin();
         }
@@ -61,6 +72,20 @@ namespace Assets.Scripts.Game
             return plugin as T;
         }
 
+        #region 游戏日志
+
+        public void Info(string message)
+        {
+            var logPlugin = GetPlugin<LogPlugin>();
+            if (logPlugin != null)
+            {
+                logPlugin.Info(message, "");
+            }
+            Debug.Log(message);
+        }
+
+        #endregion
+
 
         #region IOC和依赖注入 - 初始化Plugin
 
@@ -69,7 +94,7 @@ namespace Assets.Scripts.Game
         ///     仅注入注解[GamePlugin]属性的字段
         /// </summary>
         /// <param name="plugin"></param>
-        /// <see cref="GamePlugin"/>
+        /// <see cref="GamePlugin" />
         public void InjectPlugin(IPlugin plugin)
         {
             var propertyInfos = plugin.GetType().GetProperties();

@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Game.Utils;
-using Google.Protobuf.WellKnownTypes;
-using Org.OkraAx.V3;
+using Google.Protobuf;
 
 namespace Assets.Scripts.Game.Plugin
 {
     /// <summary>
-    ///     日志插件. 用于本地错误日志输出, 日志上报等等.
+    ///     日志插件. 用于本地错误日志输出, 日志上报等等. 插件默认不启用, 有服务端控制是否启用
     /// </summary>
     internal class LogPlugin : ComplexNetPlugin
     {
         /// <summary>
         ///     伴随日志上报的静态参数
         /// </summary>
-        private static readonly Dictionary<string, object> StaticData = new Dictionary<string, object>();
+        private static readonly Dictionary<string, object> Context = new Dictionary<string, object>();
 
         /// <summary>
         ///     Log Message Queue.
@@ -40,6 +39,11 @@ namespace Assets.Scripts.Game.Plugin
         /// </summary>
         public int QueueFlushLength = 1;
 
+        public LogPlugin()
+        {
+            Enable = false;
+        }
+
         public override void InitPlugin()
         {
             //  TODO: 初始化日志服务器信息
@@ -47,8 +51,9 @@ namespace Assets.Scripts.Game.Plugin
 //            PushEvent("getLogReportUrl", new GpcVoid());
         }
 
-        public void CallbackGetLogReportUrl(Any msg)
+        public void CallbackGetLogReportUrl(IMessage msg)
         {
+            Enable = true;
         }
 
         public void WriteAndFlush(LogMessage message)
@@ -72,73 +77,78 @@ namespace Assets.Scripts.Game.Plugin
 
         public static void PutData(string key, object value)
         {
-            StaticData.Add(key, value);
+            Context.Add(key, value);
         }
 
         public static void ClearData(string key, object value)
         {
-            StaticData.Clear();
+            Context.Clear();
         }
 
-        public void Debug(LogMessage message)
+        public void Report(LogMessage message)
         {
             Write(message);
         }
 
-        public void Info(LogMessage message)
+        public void Debug(string msg, object[] args = null, string throwable = "")
         {
-            Write(message);
+            Debug(args == null ? msg : string.Format(msg, args), throwable);
         }
 
-        public void Warn(LogMessage message)
+        public void Debug(string msg, string throwable = "")
         {
-            Write(message);
-        }
-
-        public void Error(LogMessage message)
-        {
-            Write(message);
-        }
-
-        public void Debug(string msg, string throwable)
-        {
-            Debug(new LogMessage
+            Report(new LogMessage
             {
                 LogLevel = LogLevel.Debug,
-                Data = StaticData,
+                Context = Context,
                 Message = msg,
                 Throwable = throwable
             });
         }
 
-        public void Info(string msg, string throwable)
+        public void Info(string msg, object[] args = null, string throwable = "")
         {
-            Info(new LogMessage
+            Info(args == null ? msg : string.Format(msg, args), throwable);
+        }
+
+        public void Info(string msg, string throwable = "")
+        {
+            Report(new LogMessage
             {
                 LogLevel = LogLevel.Info,
-                Data = StaticData,
+                Context = Context,
                 Message = msg,
                 Throwable = throwable
             });
         }
 
-        public void Warn(string msg, string throwable)
+        public void Warn(string msg, object[] args = null, string throwable = "")
         {
-            Warn(new LogMessage
+            Warn(args == null ? msg : string.Format(msg, args), throwable);
+        }
+
+        public void Warn(string msg, string throwable = "")
+        {
+            Report(new LogMessage
             {
                 LogLevel = LogLevel.Warn,
-                Data = StaticData,
+                Context = Context,
                 Message = msg,
                 Throwable = throwable
             });
         }
 
-        public void Error(string msg, string throwable)
+        public void Error(string msg, object[] args = null, string throwable = "")
         {
-            Error(new LogMessage
+            Error(args == null ? msg : string.Format(msg, args), throwable);
+        }
+
+        public void Error(string msg, string throwable = "")
+        {
+            Report(new LogMessage
             {
                 LogLevel = LogLevel.Error,
-                Data = StaticData,
+                Context = Context,
                 Message = msg,
                 Throwable = throwable
             });
@@ -161,7 +171,7 @@ namespace Assets.Scripts.Game.Plugin
         /// <summary>
         ///     数据
         /// </summary>
-        public Dictionary<string, object> Data = new Dictionary<string, object>();
+        public Dictionary<string, object> Context = new Dictionary<string, object>();
 
         /// <summary>
         ///     日志等级
