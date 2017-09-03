@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 
 using UnityEditor;
+using UnityEngine;
 
 public class AssetBundleTool
 {
@@ -8,9 +9,9 @@ public class AssetBundleTool
     private static void BuildAllAssetBundles()
     {
         //"./Assets/AssetBundles"
-        //Application.streamingAssetsPath
-        BuildPipeline.BuildAssetBundles("E:\\C\\Git@GitHub\\G-WuLin\\Assets\\MafiaAssets\\",
-            BuildAssetBundleOptions.AppendHashToAssetBundleName, BuildTarget.StandaloneWindows);
+        //  "E:\\C\\Git@GitHub\\G-WuLin\\Assets\\MafiaAssets\\"
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath,
+            BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
     }
 }
 #endif

@@ -10,6 +10,7 @@
 
 //#define PROTOBUF_CAHARP_2_X
 
+
 #if PROTOBUF_CAHARP_2_X
 
 using System;

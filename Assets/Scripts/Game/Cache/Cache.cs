@@ -1,11 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 
 namespace Assets.Scripts.Game.Cache
 {
+    /// <summary>
+    ///     Cache
+    /// </summary>
+    /// <typeparam name="TK"></typeparam>
+    /// <typeparam name="TB"></typeparam>
     internal abstract class Cache<TK, TB> : ICache
         where TK : struct
-        where TB : class, CacheObject<TK>
+        where TB : class, ICacheObject<TK>
     {
         /// <summary>
         ///     数据缓存
@@ -17,11 +24,26 @@ namespace Assets.Scripts.Game.Cache
         /// </summary>
         protected bool IsInitialized;
 
+        public Cache(string cacheName)
+        {
+            CacheName = cacheName;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <see cref="GetByKey" />
+        public TB this[TK key]
+        {
+            get { return GetByKey(key); }
+        }
+
         /// <summary>
         ///     获取Cache名称
         /// </summary>
         /// <returns></returns>
-        public abstract string CacheName();
+        public string CacheName { get; set; }
 
         /// <summary>
         ///     初始化缓存
@@ -35,19 +57,23 @@ namespace Assets.Scripts.Game.Cache
             }
             catch (Exception e)
             {
-                //  TODO: 实现日志输出和记录
+                Mafia.Instance.Error("Cache {0} Init Error. Source:{1}", new object[] {CacheName(), e.Source},
+                    e.Message);
             }
         }
 
         /// <summary>
         ///     加载数据
         /// </summary>
-        public abstract void Load();
+        public virtual void Load()
+        {
+            LoadFromData();
+        }
 
         /// <summary>
         ///     重新加载数据
         /// </summary>
-        public void Reload()
+        public virtual void Reload()
         {
             CacheDic.Clear();
             Init();
@@ -62,6 +88,30 @@ namespace Assets.Scripts.Game.Cache
             {
                 IsInitialized = false;
                 CacheDic.Clear();
+            }
+        }
+
+        /// <summary>
+        ///     从*.data文件中加载配置信息(JSON格式数据)
+        /// </summary>
+        public virtual void LoadFromData()
+        {
+            var path = Path.Combine(Application.streamingAssetsPath, "data/" + CacheName() + ".data");
+            if (!File.Exists(path))
+            {
+                Mafia.Instance.Error("File {0} not exist.", new object[] {CacheName()});
+                return;
+            }
+            var lines = File.ReadAllLines(path);
+            if (lines.Length <= 0)
+                return;
+            var trims = ",".ToCharArray();
+            foreach (var line in lines)
+            {
+                if (line.StartsWith("[") || line.StartsWith("]"))
+                    continue;
+                var obj = JsonUtility.FromJson<TB>(line.TrimEnd(trims));
+                CacheDic.Add(obj.GetKey(), obj);
             }
         }
 
@@ -94,9 +144,17 @@ namespace Assets.Scripts.Game.Cache
     ///     缓存对象
     /// </summary>
     /// <typeparam name="TK">对象的唯一主键类型, 限制为是值类型</typeparam>
-    internal interface CacheObject<TK> where TK : struct
+    internal interface ICacheObject<TK> where TK : struct
     {
         TK GetKey();
+    }
+
+
+    [Serializable]
+    internal class WrapList<B>
+    {
+        [SerializeField]
+        public List<B> List { get; set; }
     }
 
     internal interface ICache
@@ -105,7 +163,7 @@ namespace Assets.Scripts.Game.Cache
         ///     获取Cache名称
         /// </summary>
         /// <returns></returns>
-        string CacheName();
+        string CacheName { get; set; }
 
         /// <summary>
         ///     初始化缓存

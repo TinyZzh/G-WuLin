@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Assets.Scripts.Game;
+using Assets.Scripts.Game.Cache;
 using Assets.Scripts.Game.Plugin;
 using Assets.Scripts.Game.Utils;
 using Google.Protobuf;
@@ -11,6 +12,10 @@ using UnityEngine;
 
 public class GameComponent : MonoBehaviour
 {
+
+
+    public CfgBuild CfgBuild;
+
     // Use this for initialization
     private void Start1()
     {
@@ -50,6 +55,16 @@ public class GameComponent : MonoBehaviour
 
         Debug.Log("Plugin is " + plugin);
         //        GetLoadProfab();
+
+
+
+        var bean = new CfgBuild();
+        bean.Type = 1;
+        bean.CfgBuildId = 2;
+        var json = JsonUtility.ToJson(bean);
+        Debug.Log(json);
+        var fromJson = JsonUtility.FromJson<CfgBuild>(json);
+        Debug.Log(fromJson);
 
     }
 
@@ -106,6 +121,10 @@ public class GameComponent : MonoBehaviour
     {
         var request = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, path));
         yield return request;
+        while (!request.isDone)
+        {
+            yield return false;
+        }
         var assetBundle = request.assetBundle;
         if (assetBundle == null)
         {

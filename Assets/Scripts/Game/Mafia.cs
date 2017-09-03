@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using Assets.Scripts.Game.Cache;
 using Assets.Scripts.Game.Core;
 using Assets.Scripts.Game.Plugin;
-using UnityEngine;
 
 namespace Assets.Scripts.Game
 {
     /// <summary>
     /// </summary>
-    internal class Mafia
+    internal partial class Mafia
     {
         /// <summary>
         ///     Mafia单例
@@ -45,13 +44,15 @@ namespace Assets.Scripts.Game
             if (_isInitialized)
                 return;
             _isInitialized = true;
-            CacheStore.Init();
             InitPlugin();
+            //  
+            CacheStore.Init();
         }
 
         public void InitPlugin()
         {
             CreatePlugin(typeof(MafiaPlugin));
+            CreatePlugin(typeof(LogPlugin));
             CreatePlugin(typeof(MafiaMemberPlugin));
             CreatePlugin(typeof(NetPlugin));
         }
@@ -71,20 +72,6 @@ namespace Assets.Scripts.Game
                 plugin.Initialize();
             return plugin as T;
         }
-
-        #region 游戏日志
-
-        public void Info(string message)
-        {
-            var logPlugin = GetPlugin<LogPlugin>();
-            if (logPlugin != null)
-            {
-                logPlugin.Info(message, "");
-            }
-            Debug.Log(message);
-        }
-
-        #endregion
 
 
         #region IOC和依赖注入 - 初始化Plugin

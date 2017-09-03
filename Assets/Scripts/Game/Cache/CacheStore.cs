@@ -4,22 +4,22 @@ using System.Collections.Generic;
 namespace Assets.Scripts.Game.Cache
 {
     /// <summary>
-    /// 缓存
+    ///     缓存
     /// </summary>
     internal class CacheStore
     {
         private readonly Dictionary<Type, ICache> _caches = new Dictionary<Type, ICache>();
 
         /// <summary>
-        /// 初始化
+        ///     初始化
         /// </summary>
         public void Init()
         {
             _caches.Add(typeof(CfgBuildCache), new CfgBuildCache());
+            _caches.Add(typeof(CfgLevelCache), new CfgLevelCache());
+            _caches.Add(typeof(CfgItemCache), new CfgItemCache());
             foreach (var cache in _caches)
-            {
                 cache.Value.Init();
-            }
         }
 
         public ICache GetCache<TC>()
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Game.Cache
 
         public Cache<TK, TB> GetCache<TK, TB>()
             where TK : struct
-            where TB : class, CacheObject<TK>
+            where TB : class, ICacheObject<TK>
         {
             var type = typeof(Cache<TK, TB>);
             return _caches.ContainsKey(type) ? _caches[type] as Cache<TK, TB> : default(Cache<TK, TB>);
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Game.Cache
 
         public TB GetById<TK, TB>(TK key)
             where TK : struct
-            where TB : class, CacheObject<TK>
+            where TB : class, ICacheObject<TK>
         {
             var type = typeof(Cache<TK, TB>);
             return _caches.ContainsKey(type) && _caches[type] is Cache<TK, TB>
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Game.Cache
 
         public List<TB> GetByAll<TK, TB>()
             where TK : struct
-            where TB : class, CacheObject<TK>
+            where TB : class, ICacheObject<TK>
         {
             var type = typeof(Cache<TK, TB>);
             return _caches.ContainsKey(type) && _caches[type] is Cache<TK, TB>

@@ -2,39 +2,28 @@
 
 namespace Assets.Scripts.Game.Cache
 {
-
     [Serializable]
-    internal class CfgBuild : CacheObject<int>
+    public class CfgBuild : ICacheObject<int>
     {
-        public int CfgBuildId { get; set; }
-        public string Name { get; set; }
-        public string Desc { get; set; }
-
+        public int CfgBuildId;
+        public string Desc;
+        public int Income;
+        public string Name;
+        public int Prefix;
+        public int Price;
+        public int Type;
 
         public int GetKey()
         {
-            return this.CfgBuildId;
+            return CfgBuildId;
         }
     }
 
 
     internal class CfgBuildCache : Cache<int, CfgBuild>
     {
-        public override void Dispose()
+        public CfgBuildCache() : base("cfg_build")
         {
-            throw new NotImplementedException();
-        }
-
-        public override string CacheName()
-        {
-            return "cfg_build";
-        }
-
-        public override void Load()
-        {
-            CfgBuild m_bean = new CfgBuild();
-            m_bean.CfgBuildId = 1001;
-            CacheDic.Add(m_bean.GetKey(), m_bean);
         }
     }
 }

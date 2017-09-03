@@ -1,25 +1,24 @@
-﻿using System;
-using Assets.Scripts.Game.Utils;
+﻿using Assets.Scripts.Game.Utils;
 
 namespace Assets.Scripts.Game.Bean
 {
-
     public enum UnitType
     {
         Player,
+
         /// <summary>
-        /// 小怪
+        ///     小怪
         /// </summary>
         Master,
+
         /// <summary>
-        /// Boss
+        ///     Boss
         /// </summary>
         Boss
     }
 
 
     /// <summary>
-    /// 
     /// </summary>
     public class UnitProperty
     {
@@ -27,10 +26,12 @@ namespace Assets.Scripts.Game.Bean
         public float MaxHp { get; set; }
         public float Mp { get; set; }
         public float MaxMp { get; set; }
+
         /// <summary>
-        /// 行动力
+        ///     行动力
         /// </summary>
         public float Energy { get; set; }
+
         /// <summary>
         ///     攻击力
         /// </summary>
@@ -40,7 +41,6 @@ namespace Assets.Scripts.Game.Bean
         ///     防御力
         /// </summary>
         public float Defence { get; set; }
-
     }
 
     public enum FourDirection
@@ -55,6 +55,7 @@ namespace Assets.Scripts.Game.Bean
     {
         //  方向偏移向量
         public static readonly Point Top = new Point(0, 1);
+
         public static readonly Point Bottom = new Point(0, -1);
         public static readonly Point Left = new Point(-1, 0);
         public static readonly Point Right = new Point(1, 0);

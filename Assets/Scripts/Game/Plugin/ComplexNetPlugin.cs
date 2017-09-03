@@ -5,7 +5,7 @@ using Org.OkraAx.V3;
 
 namespace Assets.Scripts.Game.Plugin
 {
-    internal abstract partial class ComplexNetPlugin : AbstractPlugin
+    internal abstract class ComplexNetPlugin : AbstractPlugin
     {
         public void RegisterMethod(string method, Type paramType, Action<IMessage> action)
         {

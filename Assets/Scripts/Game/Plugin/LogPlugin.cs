@@ -10,11 +10,6 @@ namespace Assets.Scripts.Game.Plugin
     internal class LogPlugin : ComplexNetPlugin
     {
         /// <summary>
-        ///     伴随日志上报的静态参数
-        /// </summary>
-        private static readonly Dictionary<string, object> Context = new Dictionary<string, object>();
-
-        /// <summary>
         ///     Log Message Queue.
         /// </summary>
         private readonly Queue<LogMessage> _msgQueue = new Queue<LogMessage>();
@@ -75,83 +70,11 @@ namespace Assets.Scripts.Game.Plugin
             //  TODO:推送到日志服务器
         }
 
-        public static void PutData(string key, object value)
-        {
-            Context.Add(key, value);
-        }
-
-        public static void ClearData(string key, object value)
-        {
-            Context.Clear();
-        }
-
         public void Report(LogMessage message)
         {
+            if (!Enable)
+                return;
             Write(message);
-        }
-
-        public void Debug(string msg, object[] args = null, string throwable = "")
-        {
-            Debug(args == null ? msg : string.Format(msg, args), throwable);
-        }
-
-        public void Debug(string msg, string throwable = "")
-        {
-            Report(new LogMessage
-            {
-                LogLevel = LogLevel.Debug,
-                Context = Context,
-                Message = msg,
-                Throwable = throwable
-            });
-        }
-
-        public void Info(string msg, object[] args = null, string throwable = "")
-        {
-            Info(args == null ? msg : string.Format(msg, args), throwable);
-        }
-
-        public void Info(string msg, string throwable = "")
-        {
-            Report(new LogMessage
-            {
-                LogLevel = LogLevel.Info,
-                Context = Context,
-                Message = msg,
-                Throwable = throwable
-            });
-        }
-
-        public void Warn(string msg, object[] args = null, string throwable = "")
-        {
-            Warn(args == null ? msg : string.Format(msg, args), throwable);
-        }
-
-        public void Warn(string msg, string throwable = "")
-        {
-            Report(new LogMessage
-            {
-                LogLevel = LogLevel.Warn,
-                Context = Context,
-                Message = msg,
-                Throwable = throwable
-            });
-        }
-
-        public void Error(string msg, object[] args = null, string throwable = "")
-        {
-            Error(args == null ? msg : string.Format(msg, args), throwable);
-        }
-
-        public void Error(string msg, string throwable = "")
-        {
-            Report(new LogMessage
-            {
-                LogLevel = LogLevel.Error,
-                Context = Context,
-                Message = msg,
-                Throwable = throwable
-            });
         }
     }
 

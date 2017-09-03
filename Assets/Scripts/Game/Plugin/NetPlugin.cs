@@ -77,7 +77,7 @@ namespace Assets.Scripts.Game.Plugin
             if (MethodsDic.ContainsKey(method))
                 return;
 
-            MethodsDic.Add(method, new NetCallback()
+            MethodsDic.Add(method, new NetCallback
             {
                 Param = paramType,
                 InvokedMethod = action

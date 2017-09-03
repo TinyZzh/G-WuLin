@@ -3,7 +3,7 @@
 namespace Assets.Scripts.Game.Cache
 {
     [Serializable]
-    internal class CfgLevel : CacheObject<int>
+    internal class CfgLevel : ICacheObject<int>
     {
         public int Level { get; set; }
         public int Exp { get; set; }
@@ -18,22 +18,8 @@ namespace Assets.Scripts.Game.Cache
 
     internal class CfgLevelCache : Cache<int, CfgBuild>
     {
-
-        public override string CacheName()
+        public CfgLevelCache() : base("cfg_level")
         {
-            return "cfg_level";
-        }
-
-        public override void Load()
-        {
-            var m_bean = new CfgBuild();
-            m_bean.CfgBuildId = 1001;
-            CacheDic.Add(m_bean.GetKey(), m_bean);
-        }
-
-        public override void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }

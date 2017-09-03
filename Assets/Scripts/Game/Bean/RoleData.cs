@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Assets.Scripts.Game.Bean
+﻿namespace Assets.Scripts.Game.Bean
 {
-    
-
     /// <summary>
-    /// 角色技能点信息
+    ///     角色技能点信息
     /// </summary>
     public class RoleSkillPointBean
     {
@@ -17,7 +10,6 @@ namespace Assets.Scripts.Game.Bean
         public float Defense { get; set; }
         public float Energy { get; set; }
         public float Stamina { get; set; }
-
     }
 
     /// <summary>
@@ -41,12 +33,12 @@ namespace Assets.Scripts.Game.Bean
         public long Money { get; set; }
 
         /// <summary>
-        /// 角色当前等级
+        ///     角色当前等级
         /// </summary>
         public int Level { get; set; }
 
         /// <summary>
-        /// 角色当前经验值
+        ///     角色当前经验值
         /// </summary>
         public int Exp { get; set; }
 
@@ -56,33 +48,34 @@ namespace Assets.Scripts.Game.Bean
         public long LastFetchMoney { get; set; }
 
         /// <summary>
-        /// 技能点信息
+        ///     技能点信息
         /// </summary>
         public RoleSkillPointBean SkillPointBean { get; set; }
+
         /// <summary>
-        /// 帮派成员数量
+        ///     帮派成员数量
         /// </summary>
         public int MafiaMemberCount { get; set; }
     }
 
     /// <summary>
-    /// 物品信息
+    ///     物品信息
     /// </summary>
     internal class ItemInfo
     {
         /// <summary>
-        /// 物品唯一ID
-        /// </summary>
-        public long ItemId;
-        /// <summary>
-        /// 物品配置表ID
-        /// </summary>
-        public int CfgItemId;
-        /// <summary>
-        /// 物品数量
+        ///     物品数量
         /// </summary>
         public int Amount;
 
-    }
+        /// <summary>
+        ///     物品配置表ID
+        /// </summary>
+        public int CfgItemId;
 
+        /// <summary>
+        ///     物品唯一ID
+        /// </summary>
+        public long ItemId;
+    }
 }

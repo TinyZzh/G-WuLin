@@ -152,8 +152,6 @@ namespace Assets.Scripts.Game.Net
         /// <see cref="IPAddress" />
         public void Connect(IPAddress ipAddress, int port)
         {
-           
-
             _socket.BeginConnect(ipAddress, port, OnConnectCallBack, this);
         }
 

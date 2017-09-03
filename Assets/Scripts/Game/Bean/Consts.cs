@@ -6,9 +6,10 @@
     internal enum ItemType
     {
         /// <summary>
-        /// 普通物品
+        ///     普通物品
         /// </summary>
         Normal,
+
         /// <summary>
         ///     武器
         /// </summary>
