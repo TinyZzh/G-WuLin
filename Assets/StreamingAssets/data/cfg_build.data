@@ -1,0 +1,14 @@
+[
+{"CfgBuildId":1001,"Desc":1,"Income":100,"Name":"空地","Prefix":0,"Price":5000,"Type":1},
+{"CfgBuildId":1002,"Desc":1,"Income":300,"Name":"城市地段","Prefix":0,"Price":50000,"Type":1},
+{"CfgBuildId":1003,"Desc":1,"Income":2000,"Name":"中心广场","Prefix":0,"Price":1000000,"Type":1},
+{"CfgBuildId":1004,"Desc":1,"Income":300,"Name":"别墅","Prefix":1001,"Price":10000,"Type":2},
+{"CfgBuildId":1005,"Desc":1,"Income":700,"Name":"餐馆","Prefix":1001,"Price":30000,"Type":2},
+{"CfgBuildId":1006,"Desc":1,"Income":5000,"Name":"公寓楼","Prefix":1002,"Price":200000,"Type":2},
+{"CfgBuildId":1007,"Desc":1,"Income":10000,"Name":"宾馆","Prefix":1002,"Price":400000,"Type":2},
+{"CfgBuildId":1008,"Desc":1,"Income":150000,"Name":"写字楼","Prefix":1002,"Price":20000000,"Type":2},
+{"CfgBuildId":1009,"Desc":1,"Income":300000,"Name":"私人会所","Prefix":1003,"Price":40000000,"Type":2},
+{"CfgBuildId":1010,"Desc":1,"Income":50000,"Name":"摩天大楼","Prefix":1002,"Price":5000000,"Type":2},
+{"CfgBuildId":1011,"Desc":1,"Income":200000,"Name":"豪华酒店","Prefix":1003,"Price":20000000,"Type":2},
+{"CfgBuildId":1012,"Desc":1,"Income":8000,"Name":"海滨空地","Prefix":0,"Price":4000000,"Type":1}
+]
