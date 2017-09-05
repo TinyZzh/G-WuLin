@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Game.Utils;
 using Google.Protobuf;
+using Org.OkraAx.V3;
 
 namespace Assets.Scripts.Game.Plugin
 {
@@ -41,14 +42,16 @@ namespace Assets.Scripts.Game.Plugin
 
         public override void InitPlugin()
         {
-            //  TODO: 初始化日志服务器信息
-//            RegisterMethod<Any>("CallbackGetLogReportUrl", CallbackGetLogReportUrl);
-//            PushEvent("getLogReportUrl", new GpcVoid());
+            RegisterMethod("CallbackGetLogReportUrl", typeof(LogServerInfoBean), CallbackGetLogReportUrl);
+            PushEvent("onGetLogReportUrl", new GpcVoid());
         }
 
         public void CallbackGetLogReportUrl(IMessage msg)
         {
             Enable = true;
+
+            //  TODO: 连接日志服务器 - 目前直接上报给login进程
+
         }
 
         public void WriteAndFlush(LogMessage message)
@@ -60,14 +63,39 @@ namespace Assets.Scripts.Game.Plugin
         public void Write(LogMessage message)
         {
             _msgQueue.Enqueue(message);
+            TryFlush();
         }
 
-
-        public void Flush()
+        /// <summary>
+        ///     满足条件时触发Flush()
+        /// </summary>
+        private void TryFlush()
         {
             if (_length < QueueFlushLength && GameClock.Timestamp - _lastReportTime < 60000)
                 return;
-            //  TODO:推送到日志服务器
+            Flush();
+        }
+
+        /// <summary>
+        ///     上报日志
+        /// </summary>
+        public void Flush()
+        {
+            var data = new ReportClientLogBean();
+            LogMessage logMessage;
+            while ((logMessage = _msgQueue.Dequeue()) != null)
+                data.List.Add(new ClientLogMessage
+                {
+                    Context =
+                    {
+                        logMessage.Context
+                    },
+                    LogLevel = (int) logMessage.LogLevel,
+                    Message = logMessage.Message,
+                    Throwable = logMessage.Throwable
+                });
+            if (data.List.Count > 0)
+                PushEvent("onReportClientLog", data);
         }
 
         public void Report(LogMessage message)
@@ -94,7 +122,7 @@ namespace Assets.Scripts.Game.Plugin
         /// <summary>
         ///     数据
         /// </summary>
-        public Dictionary<string, object> Context = new Dictionary<string, object>();
+        public Dictionary<string, string> Context = new Dictionary<string, string>();
 
         /// <summary>
         ///     日志等级

@@ -103,47 +103,10 @@ public class GameComponent : MonoBehaviour
     }
 
 
-
-    #region 资源加载
-
-    public Dictionary<string, AssetBundle> AssetBundleCache = new Dictionary<string,AssetBundle>();
-
-
-
-    private IEnumerator LoadAsyncAssetBundleCoroutine(string path, Action<AssetBundle> callback)
-    {
-        var request = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, path));
-        yield return request;
-        callback(request.assetBundle);
-    }
-
-    private IEnumerator LoadAsyncCoroutine(string path, string resName, Action<GameObject> callback)
-    {
-        var request = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, path));
-        yield return request;
-        while (!request.isDone)
-        {
-            yield return false;
-        }
-        var assetBundle = request.assetBundle;
-        if (assetBundle == null)
-        {
-            Debug.Log("Failed to load AssetBundle!");
-            yield break;
-        }
-        var assetLoadRequest = assetBundle.LoadAssetAsync<GameObject>(resName);
-        yield return assetLoadRequest;
-        callback(assetLoadRequest.asset as GameObject);
-    }
-
     public void LoadAssetbundleAsync(string path, Action<AssetBundle> callback)
     {
-        StartCoroutine(LoadAsyncAssetBundleCoroutine(path, callback));
+        StartCoroutine(Mafia.AsyncLoadAssetBundle(path, callback));
     }
-
-
-    #endregion
-
 
 
 }

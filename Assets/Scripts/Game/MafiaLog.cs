@@ -10,24 +10,24 @@ namespace Assets.Scripts.Game
         /// <summary>
         ///     伴随日志上报的静态参数
         /// </summary>
-        public static readonly Dictionary<string, object> LogContext = new Dictionary<string, object>();
+        public static readonly Dictionary<string, string> LogContext = new Dictionary<string, string>();
 
-        public static void LogPutData(string key, object value)
+        public static void LogPutData(string key, string value)
         {
             LogContext.Add(key, value);
         }
 
-        public static void LogClearData(string key, object value)
+        public static void LogClearData(string key, string value)
         {
             LogContext.Clear();
         }
 
-        public void Debug(string msg, object[] args = null, string throwable = "")
+        public static void Debug(string msg, object[] args = null, string throwable = "")
         {
             Debug(args == null ? msg : string.Format(msg, args), throwable);
         }
 
-        public void Debug(string msg, string throwable = "")
+        public static void Debug(string msg, string throwable = "")
         {
             LogReport(new LogMessage
             {
@@ -38,12 +38,12 @@ namespace Assets.Scripts.Game
             });
         }
 
-        public void Info(string msg, object[] args = null, string throwable = "")
+        public static void Info(string msg, object[] args = null, string throwable = "")
         {
             Info(args == null ? msg : string.Format(msg, args), throwable);
         }
 
-        public void Info(string msg, string throwable = "")
+        public static void Info(string msg, string throwable = "")
         {
             LogReport(new LogMessage
             {
@@ -54,12 +54,12 @@ namespace Assets.Scripts.Game
             });
         }
 
-        public void Warn(string msg, object[] args = null, string throwable = "")
+        public static void Warn(string msg, object[] args = null, string throwable = "")
         {
             Warn(args == null ? msg : string.Format(msg, args), throwable);
         }
 
-        public void Warn(string msg, string throwable = "")
+        public static void Warn(string msg, string throwable = "")
         {
             LogReport(new LogMessage
             {
@@ -70,12 +70,12 @@ namespace Assets.Scripts.Game
             });
         }
 
-        public void Error(string msg, object[] args = null, string throwable = "")
+        public static void Error(string msg, object[] args = null, string throwable = "")
         {
             Error(args == null ? msg : string.Format(msg, args), throwable);
         }
 
-        public void Error(string msg, string throwable = "")
+        public static void Error(string msg, string throwable)
         {
             LogReport(new LogMessage
             {
@@ -86,9 +86,9 @@ namespace Assets.Scripts.Game
             });
         }
 
-        private void LogReport(LogMessage message)
+        private static void LogReport(LogMessage message)
         {
-            var plugin = GetPlugin<LogPlugin>();
+            var plugin = Instance.GetPlugin<LogPlugin>();
             if (plugin != null && plugin.Enable)
                 plugin.Write(message);
         }

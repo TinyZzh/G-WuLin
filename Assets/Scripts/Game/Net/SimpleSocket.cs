@@ -391,5 +391,18 @@ namespace Assets.Scripts.Game.Net
         public byte[] Data { get; private set; }
     }
 
+    /// <summary>
+    /// Socket异常事件
+    /// </summary>
+    public class NetErrorEventArgs : EventArgs
+    {
+        public SocketError Error { get; private set; }
+
+        public NetErrorEventArgs(SocketError error)
+        {
+            Error = error;
+        }
+    }
+
     #endregion
 }

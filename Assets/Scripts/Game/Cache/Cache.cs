@@ -57,7 +57,7 @@ namespace Assets.Scripts.Game.Cache
             }
             catch (Exception e)
             {
-                Mafia.Instance.Error("Cache {0} Init Error. Source:{1}", new object[] {CacheName(), e.Source},
+                Mafia.Instance.Error("Cache {0} Init Error. Source:{1}", new object[] {CacheName, e.Source},
                     e.Message);
             }
         }
@@ -96,10 +96,10 @@ namespace Assets.Scripts.Game.Cache
         /// </summary>
         public virtual void LoadFromData()
         {
-            var path = Path.Combine(Application.streamingAssetsPath, "data/" + CacheName() + ".data");
+            var path = Path.Combine(Application.streamingAssetsPath, "data/" + CacheName + ".data");
             if (!File.Exists(path))
             {
-                Mafia.Instance.Error("File {0} not exist.", new object[] {CacheName()});
+                Mafia.Instance.Error("File {0} not exist.", new object[] {CacheName});
                 return;
             }
             var lines = File.ReadAllLines(path);

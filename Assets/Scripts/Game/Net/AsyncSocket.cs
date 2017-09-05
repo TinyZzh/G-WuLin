@@ -190,6 +190,11 @@ namespace Assets.Scripts.Game.Net
         public event EventHandler<SocketEventArgs> SendMessageCompleted;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler<NetErrorEventArgs> OnCatchSocketError;
+
+        /// <summary>
         ///     编码时长度描述数字的字节长度[default = 2 => 65535字节]
         /// </summary>
         private readonly int _encoderLengthFieldLength = 2;
@@ -245,12 +250,15 @@ namespace Assets.Scripts.Game.Net
         private void OnSendMessageComplete(IAsyncResult ar)
         {
             var data = ar.AsyncState as byte[];
-            SocketError socketError;
-            _socket.EndSend(ar, out socketError);
-            if (socketError != SocketError.Success)
+            SocketError error;
+            _socket.EndSend(ar, out error);
+            if (error != SocketError.Success)
             {
+                if (OnCatchSocketError != null)
+                    OnCatchSocketError(this, new NetErrorEventArgs(error));
+
                 _socket.Disconnect(false);
-                throw new SocketException((int) socketError);
+                throw new SocketException((int) error);
             }
             if (SendMessageCompleted != null)
                 SendMessageCompleted(this, new SocketEventArgs(data));
@@ -304,7 +312,14 @@ namespace Assets.Scripts.Game.Net
         /// </summary>
         private void OnReceiveDataComplete(IAsyncResult ar)
         {
-            _socket.EndReceive(ar);
+            SocketError error;
+            _socket.EndReceive(ar, out error);
+            if (SocketError.Success != error)
+            {
+                if (OnCatchSocketError != null)
+                    OnCatchSocketError(this, new NetErrorEventArgs(error));
+                throw new SocketException((int)error);
+            }
             var data = ar.AsyncState as byte[];
             // 触发接收消息事件
             if (ReceiveMessageCompleted != null)

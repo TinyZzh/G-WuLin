@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using Assets.Scripts.Game.Core;
 using Assets.Scripts.Game.Net;
 using Assets.Scripts.Game.Utils;
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Game.Plugin
     {
         /// <summary>
         /// </summary>
-        private static readonly SimpleSocket NetSocket = new SimpleSocket(4, 4);
+        private static readonly AsyncSocket NetSocket = new AsyncSocket(4, 4);
 
         /// <summary>
         ///     临时回调
@@ -37,6 +38,17 @@ namespace Assets.Scripts.Game.Plugin
             NetSocket.Connect("127.0.0.1", 9007);
             NetSocket.ConnectCompleted += _mSocket_ConnectCompleted;
             NetSocket.ReceiveMessageCompleted += Socket_ReceiveMessageCompleted;
+            NetSocket.OnCatchSocketError += NetSocket_OnCatchSocketError;
+        }
+
+        private void NetSocket_OnCatchSocketError(object sender, NetErrorEventArgs e)
+        {
+            switch (e.Error)
+            {
+                case SocketError.NotConnected:
+                    NetSocket.Connect("127.0.0.1", 9007);
+                    break;
+            }
         }
 
         private void _mSocket_DisconnectCompleted(object sender, SocketEventArgs e)
